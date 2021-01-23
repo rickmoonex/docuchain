@@ -4,9 +4,9 @@ export function generateProof(previousProof: number): Promise<unknown> {
     return new Promise((resolve) => {
         setImmediate(async () => {
             const proof = Math.random() * 10000000001;
-            const dontMine = process.env.BREAK;
-            if (isProofValid(previousProof, proof) || dontMine === "true") {
-                resolve({ proof, dontMine });
+            const dontProcess = process.env.BREAK;
+            if (isProofValid(previousProof, proof) || dontProcess === "true") {
+                resolve({ proof, dontProcess });
             } else {
                 resolve(await generateProof(previousProof));
             }
