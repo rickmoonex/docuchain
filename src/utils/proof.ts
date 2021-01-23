@@ -1,6 +1,7 @@
 import crypto from "crypto";
+import IProofReturn from "../typings/IProofReturn";
 
-export function generateProof(previousProof: number): Promise<unknown> {
+export function generateProof(previousProof: number): Promise<IProofReturn> {
     return new Promise((resolve) => {
         setImmediate(async () => {
             const proof = Math.random() * 10000000001;
