@@ -1,4 +1,4 @@
-import IDocument from "../typings/IDocument";
+import IDocumentDetails from "../typings/IDocumentDetails";
 
 export default class Document {
     system: string;
@@ -9,7 +9,7 @@ export default class Document {
         this.data = data;
     }
 
-    getDetails(): IDocument {
+    getDetails(): IDocumentDetails {
         const { system, data } = this;
         return {
             system,
