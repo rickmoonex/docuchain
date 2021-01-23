@@ -22,6 +22,14 @@ export default class Blockchain {
         return this._blocks.length;
     }
 
+    get blocks(): Array<Block> {
+        return this._blocks;
+    }
+
+    set blocks(blocks: Array<Block>) {
+        this._blocks = blocks;
+    }
+
     constructor(blocks?: Array<Block>, io?: Server) {
         this._blocks = blocks || [new Block(0, "1", 0, [])];
         this._currentDocuments = [];
