@@ -42,7 +42,7 @@ export default class Block {
             timestamp: _timestamp,
             previousBlockHash: _previousBlockHash,
             documents: _documents.map((document) => {
-                return document.getDetails();
+                return document.details;
             }),
         };
     }
