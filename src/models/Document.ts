@@ -1,24 +1,32 @@
 import IDocumentDetails from "../typings/IDocumentDetails";
 
 export default class Document {
-    system: string;
-    data: Record<string, unknown>;
+    _system: string;
+    _data: Record<string, unknown>;
 
-    constructor(system: string, data: Record<string, unknown>) {
-        this.system = system;
-        this.data = data;
+    get system(): string {
+        return this._system;
     }
 
-    getDetails(): IDocumentDetails {
-        const { system, data } = this;
+    get data(): Record<string, unknown> {
+        return this._data;
+    }
+
+    get details(): IDocumentDetails {
+        const { _system, _data } = this;
         return {
-            system,
-            data,
+            system: _system,
+            data: _data,
         };
     }
 
+    constructor(system?: string, data?: Record<string, unknown>) {
+        this._system = system;
+        this._data = data;
+    }
+
     parseDocument(document: Document): void {
-        this.system = document.system;
-        this.data = document.data;
+        this._system = document.system;
+        this._data = document.data;
     }
 }
