@@ -47,7 +47,7 @@ export default class Block {
         };
     }
 
-    constructor(index: number, previousBlockHash: string, previousProof: number, documents: Array<Document>) {
+    constructor(index: number, previousBlockHash?: string, previousProof?: number, documents?: Array<Document>) {
         this._index = index;
         this._proof = previousProof;
         this._previousBlockHash = previousBlockHash;
