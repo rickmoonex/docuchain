@@ -3,14 +3,13 @@ import actions from "../constants/actions";
 import Document from "../models/Document";
 import Blockchain from "../models/Blockchain";
 
-import { Server } from "socket.io";
 import Block from "../models/Block";
 
-export default function socketListeners(socket: Server, chain: Blockchain): Server {
+export default function socketListeners(socket: SocketIOClient.Socket, chain: Blockchain): SocketIOClient.Socket {
     socket.on(actions.ADD_DOCUMENT, (system: string, data: Record<string, unknown>) => {
         const document = new Document(system, data);
         chain.newDocument(document);
-        console.info(`Added document: ${(JSON.stringify(document.details), null, "\t")}`);
+        console.info(`Added document: ${JSON.stringify(document.details)}`);
     });
 
     socket.on(actions.END_PROCESSING, (newChain: Array<Block>) => {

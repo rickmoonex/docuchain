@@ -11,7 +11,7 @@ import IBlockDetails from "../typings/IBlockDetails";
 export default class Blockchain {
     private _blocks: Array<Block>;
     private _currentDocuments: Array<Document>;
-    private _nodes: Array<Server>;
+    private _nodes: Array<SocketIOClient.Socket>;
     private _io: Server;
 
     get lastBlock(): Block {
@@ -37,7 +37,7 @@ export default class Blockchain {
         this._io = io;
     }
 
-    addNode(node: Server): void {
+    addNode(node: SocketIOClient.Socket): void {
         this._nodes.push(node);
     }
 

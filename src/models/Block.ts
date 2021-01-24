@@ -40,6 +40,7 @@ export default class Block {
             index: _index,
             proof: _proof,
             timestamp: _timestamp,
+            blockHash: this.hashValue(),
             previousBlockHash: _previousBlockHash,
             documents: _documents.map((document) => {
                 return document.details;
