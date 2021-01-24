@@ -3,9 +3,6 @@ import bodyParser from "body-parser";
 import { Server as HttpServer } from "http";
 import { Server as IoServer } from "socket.io";
 import client from "socket.io-client";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 import Blockchain from "./models/Blockchain";
 
@@ -13,8 +10,11 @@ import socketListeners from "./socket/listeners";
 import nodesRoute from "./routes/nodesRoute";
 import documentRoute from "./routes/documentRoute";
 import chainRoute from "./routes/chainRoute";
+import getConfig from "./services/config";
 
-const { PORT } = process.env;
+process.env.NODE_ENV = "development";
+
+const config = getConfig();
 
 const app = express();
 
@@ -39,6 +39,6 @@ io.on("connection", (socket) => {
     });
 });
 
-blockchain.addNode(socketListeners(client(`http://localhost:${PORT}`), blockchain));
+blockchain.addNode(socketListeners(client(`http://localhost:${config.port}`), blockchain));
 
-httpServer.listen(PORT, () => console.info(`Express server running on port ${PORT}`));
+httpServer.listen(config.port, () => console.info(`Express server running on port ${config.port}`));
