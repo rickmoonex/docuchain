@@ -2,6 +2,14 @@
 
 Docuchain is a simple blockchain client that allows the user to store documents in a blockchain data structure.
 
+A system running docuchain is called a node. A docuchain network can consist of many nodes. These nodes all communicate with each other through a websocket.
+
+Once a nodes is registered to the network it becomes active, and can start processing document.
+
+When the processing of a new document gets requested. It is relayed to all nodes. Those nodes then start to process the document. For a document to be deemed valid by the blockchain it needs to have a valid `proof` parameter. This parameter requires a certain amount of computing power to generate. This makes it very difficult for intruders to tamper with the blockchain.
+
+Once a node finished processing the document. It relays the new blockchain to all other nodes. Those nodes then check if the newly received blockchain is valid. If not, the blockchain is dropped and calculation stars over.
+
 # Endpoints
 
 ## `/nodes`
