@@ -5,6 +5,7 @@ import { Server as IoServer } from "socket.io";
 import client from "socket.io-client";
 
 import Blockchain from "./models/Blockchain";
+import Database from "./data/Database";
 
 import socketListeners from "./socket/listeners";
 import nodesRoute from "./routes/nodesRoute";
@@ -16,6 +17,8 @@ process.env.NODE_ENV = "development";
 
 const config = getConfig();
 
+const db = new Database(String(config.dbLocation));
+
 const app = express();
 
 const httpServer = new HttpServer(app);
@@ -26,7 +29,7 @@ const blockchain = new Blockchain(null, io);
 
 app.use(bodyParser.json());
 
-app.use("/nodes", nodesRoute(blockchain));
+app.use("/nodes", nodesRoute(blockchain, db));
 
 app.use("/document", documentRoute(io));
 
@@ -39,6 +42,6 @@ io.on("connection", (socket) => {
     });
 });
 
-blockchain.addNode(socketListeners(client(`http://localhost:${config.port}`), blockchain));
+blockchain.addNode(socketListeners(client(`http://localhost:${config.port}`), blockchain, db));
 
 httpServer.listen(config.port, () => console.info(`Express server running on port ${config.port}`));

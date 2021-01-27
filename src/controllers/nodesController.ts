@@ -5,12 +5,13 @@ import client from "socket.io-client";
 import Blockchain from "../models/Blockchain";
 
 import socketListeners from "../socket/listeners";
+import Database from "../data/Database";
 
-export function addNode(req: Request, res: Response, blockchain: Blockchain): void {
+export function addNode(req: Request, res: Response, blockchain: Blockchain, db: Database): void {
     const { host, port } = req.body;
     const { callback } = req.query;
     const node = `http://${host}:${port}`;
-    const socketNode = socketListeners(client(node), blockchain);
+    const socketNode = socketListeners(client(node), blockchain, db);
     blockchain.addNode(socketNode);
     if (callback === "true") {
         console.info(`Added node ${node} back`);

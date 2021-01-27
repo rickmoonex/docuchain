@@ -3,7 +3,7 @@ import lowdb from "lowdb";
 import { default as FileAsync } from "lowdb/adapters/FileAsync";
 import Blockchain from "../models/Blockchain";
 
-export class Database {
+export default class Database {
     private db: lowdb.LowdbAsync<any>;
     private dbLocation: string;
 
