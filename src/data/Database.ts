@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import lowdb from "lowdb";
 import { default as FileAsync } from "lowdb/adapters/FileAsync";
-import Blockchain from "../models/Blockchain";
+import Block from "../models/Block";
 
 export default class Database {
     private _db: lowdb.LowdbAsync<any>;
@@ -36,13 +36,11 @@ export default class Database {
         return true;
     }
 
-    setBlockchain(blockchain: Blockchain): void {
-        const chainArray = blockchain.toArray();
-        this._db.set("chain", chainArray).write();
+    setBlocks(blocks: Array<Block>): void {
+        this._db.set("chain", blocks).write();
     }
 
-    getBlockchain(): any {
-        const chain = this._db.get("chain").value();
-        return chain;
+    getBlocks(): Array<Block> {
+        return this._db.get("chain").value();
     }
 }
