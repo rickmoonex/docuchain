@@ -2,11 +2,11 @@
     "development": {
         "config_id": "development",
         "port": 5000,
-        "dbLocation": "../db.json"
+        "dbLocation": "db.json"
     },
     "production": {
         "config_id": "production",
         "port": 5000,
-        "dbLocation": "../db.json"
+        "dbLocation": "db.json"
     }
 }
