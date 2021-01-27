@@ -29,6 +29,13 @@ export default class Database {
         }
     }
 
+    isEmpty(): boolean {
+        if (!this._db.has("chain")) {
+            return false;
+        }
+        return true;
+    }
+
     setBlockchain(blockchain: Blockchain): void {
         const chainArray = blockchain.toArray();
         this._db.set("chain", chainArray).write();

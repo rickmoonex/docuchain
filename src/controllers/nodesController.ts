@@ -7,11 +7,11 @@ import Blockchain from "../models/Blockchain";
 import socketListeners from "../socket/listeners";
 import Database from "../data/Database";
 
-export function addNode(req: Request, res: Response, blockchain: Blockchain, db: Database): void {
+export function addNode(req: Request, res: Response, blockchain: Blockchain): void {
     const { host, port } = req.body;
     const { callback } = req.query;
     const node = `http://${host}:${port}`;
-    const socketNode = socketListeners(client(node), blockchain, db);
+    const socketNode = socketListeners(client(node), blockchain);
     blockchain.addNode(socketNode);
     if (callback === "true") {
         console.info(`Added node ${node} back`);

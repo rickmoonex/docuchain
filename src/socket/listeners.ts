@@ -4,13 +4,8 @@ import Document from "../models/Document";
 import Blockchain from "../models/Blockchain";
 
 import Block from "../models/Block";
-import Database from "../data/Database";
 
-export default function socketListeners(
-    socket: SocketIOClient.Socket,
-    chain: Blockchain,
-    db: Database,
-): SocketIOClient.Socket {
+export default function socketListeners(socket: SocketIOClient.Socket, chain: Blockchain): SocketIOClient.Socket {
     socket.on(actions.ADD_DOCUMENT, (system: string, data: Record<string, unknown>) => {
         const document = new Document(system, data);
         chain.newDocument(document);
@@ -24,7 +19,6 @@ export default function socketListeners(
         blockChain.parseChain(newChain);
         if (blockChain.checkValidity() && blockChain.length >= chain.length) {
             chain.blocks = blockChain.blocks;
-            db.setBlockchain(blockChain);
         }
     });
 
