@@ -4,20 +4,24 @@ import { default as FileAsync } from "lowdb/adapters/FileAsync";
 import Blockchain from "../models/Blockchain";
 
 export default class Database {
-    private db: lowdb.LowdbAsync<any>;
-    private dbLocation: string;
+    private _db: lowdb.LowdbAsync<any>;
+    private _dbLocation: string;
+
+    get db(): lowdb.LowdbAsync<any> {
+        return this._db;
+    }
 
     constructor(dbLocation: string) {
-        this.dbLocation = dbLocation;
+        this._dbLocation = dbLocation;
         this.initDatabase();
     }
 
     private async initDatabase(): Promise<void> {
-        const adapter = new FileAsync(this.dbLocation);
-        this.db = await lowdb(adapter);
+        const adapter = new FileAsync(this._dbLocation);
+        this._db = await lowdb(adapter);
 
-        if (!this.db.has("chain").value()) {
-            this.db
+        if (!this._db.has("chain").value()) {
+            this._db
                 .defaults({
                     chain: [],
                 })
@@ -25,8 +29,13 @@ export default class Database {
         }
     }
 
-    async setBlockchain(blockchain: Blockchain): Promise<void> {
-        const chainArray = await blockchain.toArray();
-        await this.db.set("chain", chainArray).write();
+    setBlockchain(blockchain: Blockchain): void {
+        const chainArray = blockchain.toArray();
+        this._db.set("chain", chainArray).write();
+    }
+
+    getBlockchain(): any {
+        const chain = this._db.get("chain").value();
+        return chain;
     }
 }
