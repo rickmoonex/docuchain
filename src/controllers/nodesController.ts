@@ -5,7 +5,6 @@ import client from "socket.io-client";
 import Blockchain from "../models/Blockchain";
 
 import socketListeners from "../socket/listeners";
-import Database from "../data/Database";
 
 export function addNode(req: Request, res: Response, blockchain: Blockchain): void {
     const { host, port } = req.body;
