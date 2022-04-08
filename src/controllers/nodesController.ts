@@ -8,8 +8,8 @@ import socketListeners from "../socket/listeners";
 
 export function addNode(req: Request, res: Response, blockchain: Blockchain): void {
     const white_list = ["http", "https"]
-    const host = (new String(req.body.host))
-    const port = (new String(req.body.port))
+    const host = String(req.body.host)
+    const port = String(req.body.port)
     const node = `http://${host}:${port}`;
 
     if (!white_list.includes(node)) return
