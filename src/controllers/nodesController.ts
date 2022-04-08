@@ -10,6 +10,7 @@ export function addNode(req: Request, res: Response, blockchain: Blockchain): vo
     const { host, port } = req.body;
     const { callback } = req.query;
     const node = `http://${host}:${port}`;
+    if (!node.includes("http")) return
     const socketNode = socketListeners(client(node), blockchain);
     blockchain.addNode(socketNode);
     if (callback === "true") {
