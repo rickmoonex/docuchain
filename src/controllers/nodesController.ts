@@ -7,10 +7,12 @@ import Blockchain from "../models/Blockchain";
 import socketListeners from "../socket/listeners";
 
 export function addNode(req: Request, res: Response, blockchain: Blockchain): void {
-    const { host, port } = req.body;
-    const { callback } = req.query;
+    const white_list = ["http", "https"]
+    const host = (new String(req.body.host))
+    const port = (new String(req.body.port))
     const node = `http://${host}:${port}`;
-    if (!node.includes("http")) return
+
+    if (!white_list.includes(node)) return
     const socketNode = socketListeners(client(node), blockchain);
     blockchain.addNode(socketNode);
     if (callback === "true") {
